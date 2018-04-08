@@ -16,7 +16,7 @@ public class GetInfo {
         String regex = "(?<=\\().*(?=\\))";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(data);
-        String date = "20180403";
+        String date = "20180404";
         //http://q.stock.sohu.com/hisHq?code=cn_600420
         String codeUrl = "http://q.stock.sohu.com/hisHq?code=cn_";
         @SuppressWarnings("resource")

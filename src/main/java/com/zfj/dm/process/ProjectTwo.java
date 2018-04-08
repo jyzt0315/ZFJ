@@ -32,7 +32,7 @@ public class ProjectTwo {
 		ObjectMapper map = new ObjectMapper();
 		TXTProcess tp = new TXTProcess();
 		int attributeNum = 15;
-		String date = "20180403";
+		String date = "20180404";
 		String arffTrain = "/Users/hehuan/Desktop/zfj/train.arff";
 		String arffTest = "/Users/hehuan/Desktop/zfj/test.arff";
 		ArrayList<String> data = tp.readFileByLines("/Users/hehuan/Desktop/zfj/trade" + date + ".txt");
@@ -98,15 +98,21 @@ public class ProjectTwo {
 		}
 		
 		Double dataSize = (double)doublePriorityQueueAsc.size();
+		int dirtySize = (int) Math.round(dataSize * 0.05);
 		int positiveSize = (int) Math.round(dataSize * 0.1);
 		int negitiveSize = (int) Math.round(dataSize * 0.3);
 		List<Double> positiveList = new ArrayList<>();
 		List<Double> negitiveList = new ArrayList<>();
 		for(int i = 0; i < dataSize; i++){
-			if(i < negitiveSize) {
+			
+			if(i < dirtySize) {
+				doublePriorityQueueAsc.poll();
+			}
+			
+			if(i < negitiveSize + dirtySize && i >= dirtySize) {
 				negitiveList.add(doublePriorityQueueAsc.poll());
 			}
-			if(dataSize - i < positiveSize) {
+			if(dataSize - dirtySize - i < positiveSize && dataSize - dirtySize - i >= 0) {
 				positiveList.add(doublePriorityQueueAsc.poll());
 			}
 		}
